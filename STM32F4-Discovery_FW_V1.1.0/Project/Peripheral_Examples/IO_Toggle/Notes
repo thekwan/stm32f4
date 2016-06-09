@@ -1,0 +1,15 @@
+1. Compile project
+> make
+
+2. Connect to target device by using openocd
+> openocd -f $board_dir/stm32f4discovery.cfg
+
+3. Connect to device through gdb
+> arm-none-eabi-gdb 
+In gdb command list,
+(gdb) target remote localhost:3333
+(gdb) load target_binary.elf
+(gdb) c (continue)
+(gdb) b main:23 (set breakpoint at the line 23 of main.c file)
+(gdb) d 0       (delete breakpoint 0)
+(gdb) info b    (list all breakpoints)
