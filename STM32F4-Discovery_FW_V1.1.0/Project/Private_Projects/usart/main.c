@@ -19,6 +19,7 @@ void ms_delay(int ms)
 
 int main(void)
 {
+	char receive_string[128];
 	uart4_hw_init( );
 
 	bsp_led_hw_init(LED1);
@@ -28,11 +29,19 @@ int main(void)
 	bsp_led_on(LED2);
 
 	for (;;) {
-		ms_delay(500);
+#if 0	/* Simplest basic test code */
+		ms_delay(1000);
+		SendMessage( "Hellow World!\n\r" );
+#else
+		SendMessage( "#> ", NONE );
+		ReceiveMessage( receive_string, 128);
+
 		bsp_led_toggle(LED2);
 		bsp_led_off(LED1);
 
-		SendMessage( "Hellow World!\n\r" );
+		if( receive_string[0] != 0x0 )
+			SendMessage( receive_string, NEWLINE );
+#endif
 	}
 
 	return 0;
